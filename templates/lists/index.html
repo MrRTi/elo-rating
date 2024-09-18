@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Elo Rating</title>
+    </head>
+    <body>
+        <h1>Elo Rating</h1>
+        <div>
+            <form action="/lists" method="POST">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title" required><br>
+                <button type="submit">Create List</button>
+            </form>
+        </div>
+        {{ if gt (len .Lists) 0 }}
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Items</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .Lists}}
+                <tr>
+                    <td>
+                        {{.ID}}
+                    </td>
+                    <td>
+                        {{.Title}}
+                    </td>
+                    <td>
+                        <a href="/lists/{{.ID}}/items">Items</a>
+                    </td>
+
+                    <td>
+                        <form action="/lists/{{.ID}}" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <td><button type="submit">Delete</button></td>
+                        </form>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+        {{end}}
+    </body>
+</html>
